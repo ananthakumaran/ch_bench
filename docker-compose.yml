@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:24.2-alpine
+    ports:
+      - "8123:8123"
+      - "9100:9100"
+    volumes:
+      - ./clickhouse/config.xml:/etc/clickhouse-server/config.xml
+      - clickhouse:/var/lib/clickhouse
+
+volumes:
+  clickhouse:

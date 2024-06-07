@@ -26,7 +26,8 @@ defmodule ChBench.MixProject do
       {:ch, "~> 0.2.0"},
       {:grpc, "~> 0.8"},
       {:protobuf, "~> 0.11"},
-      {:protobuf_generate, "~> 0.1.1", only: [:dev, :test]}
+      {:protobuf_generate, "~> 0.1.1", only: [:dev, :test]},
+      {:recon, "~> 2.5"}
     ]
   end
 

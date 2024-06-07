@@ -1,11 +1,10 @@
-IO.puts("This benchmark is based on https://github.com/ClickHouse/clickhouse-go#benchmark\n")
-
 port = String.to_integer(System.get_env("CH_PORT") || "8123")
 hostname = System.get_env("CH_HOSTNAME") || "localhost"
 scheme = System.get_env("CH_SCHEME") || "http"
 database = System.get_env("CH_DATABASE") || "ch_bench"
 
-{:ok, conn} = Ch.start_link(scheme: scheme, hostname: hostname, port: port)
+{:ok, conn} = Ch.start_link(scheme: scheme, hostname: hostname, port: port, pool_size: 4)
+
 Ch.query!(conn, "CREATE DATABASE IF NOT EXISTS {$0:Identifier}", [database])
 
 Ch.query!(conn, """
@@ -71,6 +70,7 @@ Benchee.run(
     end
   },
   # profile_after: :fprof,
+  parallel: 4,
   inputs: %{
     "100 rows" => rows.(100)
   }
